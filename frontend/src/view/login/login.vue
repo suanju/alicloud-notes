@@ -5,7 +5,7 @@
             <div class="mb-4">
                 <img src="" alt="阿里云盘二维码" class="mx-auto h-48 w-48">
             </div>
-            <p class="text-gray-600 mb-4">使用阿里云盘APP扫描上方二维码登录</p>
+            <p class="text-white mb-4">使用阿里云盘APP扫描上方二维码登录</p>
         </div>
     </div>
 </template>

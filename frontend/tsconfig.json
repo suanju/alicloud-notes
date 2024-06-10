@@ -25,6 +25,6 @@
       "@walis/*": ["./wailsjs/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue","postcss.config.js"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

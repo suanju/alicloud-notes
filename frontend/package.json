@@ -13,11 +13,10 @@
     "vue-router": "4"
   },
   "devDependencies": {
-    "@iconify-json/system-uicons": "^1.1.12",
     "@types/node": "^20.14.1",
     "@vitejs/plugin-vue": "^5.0.4",
+    "ts-node": "^10.9.2",
     "typescript": "^5.2.2",
-    "unocss": "^0.58.5",
     "vite": "^5.2.0",
     "vue-tsc": "^2.0.6"
   }
