@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@iconify-json/system-uicons": "^1.1.12",
     "vue": "^3.4.21",
     "vue-router": "4"
   },
@@ -17,6 +18,7 @@
     "@vitejs/plugin-vue": "^5.0.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.2.2",
+    "unocss": "^0.60.4",
     "vite": "^5.2.0",
     "vue-tsc": "^2.0.6"
   }
