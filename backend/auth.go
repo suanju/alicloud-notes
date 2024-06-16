@@ -10,9 +10,16 @@ import (
 	"strconv"
 
 	"github.com/go-resty/resty/v2"
+	"github.com/google/uuid"
 	"github.com/skip2/go-qrcode"
+
+	"github.com/tickstep/aliyunpan-api/aliyunpan_web"
 )
 
+//lint:ignore U1000 全局实例
+var panInstance *aliyunpan_web.WebPanClient
+
+// GenerateQrcode 阿里云盘获取登录二维码
 func (a *App) GenerateQrcode() (resp *types.GenerateQrcodeResp, err error) {
 	clientResp, err := resty.New().R().
 		SetQueryParams(map[string]string{
@@ -42,6 +49,7 @@ func (a *App) GenerateQrcode() (resp *types.GenerateQrcodeResp, err error) {
 	}, nil
 }
 
+// QrcodeState 获取二维码状态
 func (a *App) QrcodeState(req *types.QrcodeStateReq) (resp *types.QrcodeStateResp, err error) {
 	params := url.Values{}
 	params.Set("t", strconv.FormatInt(req.T, 10))
@@ -74,4 +82,29 @@ func (a *App) QrcodeState(req *types.QrcodeStateReq) (resp *types.QrcodeStateRes
 		}, nil
 	}
 	return nil, fmt.Errorf(_const.QrCodeStatus[httpResp.Content.Data.QrCodeStatus])
+}
+
+// CreatInstance 创建实例
+func (a *App) CreatInstance(req *types.CreatInstanceReq) (resp *types.CreatInstanceResp, err error) {
+	webToken, apierror := aliyunpan_web.GetAccessTokenFromRefreshToken(req.RefreshToken)
+	if apierror != nil {
+		return nil, fmt.Errorf("获取AcccesToken失败")
+	}
+	appConfig := aliyunpan_web.AppConfig{
+		DeviceId: uuid.New().String(),
+	}
+	panInstance := aliyunpan_web.NewWebPanClient(*webToken, aliyunpan_web.AppLoginToken{}, appConfig, aliyunpan_web.SessionConfig{
+		DeviceName: "云笔记",
+		ModelName:  "云笔记",
+	})
+	// create session
+	panInstance.CreateSession(&aliyunpan_web.CreateSessionParam{
+		DeviceName: "云笔记",
+		ModelName:  "云笔记",
+	})
+	userInfo, apierror := panInstance.GetUserInfo()
+	if apierror != nil {
+		return nil, fmt.Errorf("获取用户信息失败")
+	}
+	return userInfo, nil
 }

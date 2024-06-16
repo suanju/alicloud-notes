@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { GenerateQrcode, QrcodeState } from "@walis/go/backend/App"
+import { CreatInstance, GenerateQrcode, QrcodeState } from "@walis/go/backend/App"
 import type { types } from "@walis/go/models";
 import { onMounted, ref } from "vue";
 import Lodaing from "@/assets/loading.svg"
@@ -40,14 +40,14 @@ onMounted(async () => {
                 ck: qrcodeResult.value.ck
             })
             clearInterval(cl)
-            //根据refreshToken获取accessToken
-            console.log(qrcodeStateResult)
+            //根据refreshToken获取accessToken并且得到实例
+            const creatInstanceResult = await CreatInstance({ refreshToken: qrcodeStateResult.refreshToken })
+            console.log(creatInstanceResult)
         } catch (err: any) {
             console.log(err)
             tips.value = err
         }
-
-    }, 1500)
+    }, 1000)
 })
 
 

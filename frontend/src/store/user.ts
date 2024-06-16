@@ -1,26 +1,22 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
-
+import type { aliyunpan } from "@walis/go/models";
 export interface UserInfo {
-  accessToken: AccessToken;
-  user: any;
-}
-
-export interface AccessToken {
-  accessTokenType: string;
-  accessToken: string;
   refreshToken: string;
-  expiresIn: number;
-  expireTime: string;
+  user: aliyunpan.UserInfo;
 }
 
 export const useUserStore = defineStore("user", () => {
   const user = ref(<UserInfo>{});
   const isLogin = () => {
-    return !!user.value?.accessToken?.accessToken;
+    return !!user.value?.refreshToken;
   };
+  const setUserInfo = (info :aliyunpan.UserInfo) =>{
+    user.value.user = info
+  }
   return {
     user,
     isLogin,
+    setUserInfo
   };
 });
