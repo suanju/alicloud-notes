@@ -11,12 +11,16 @@ export const useUserStore = defineStore("user", () => {
   const isLogin = () => {
     return !!user.value?.refreshToken;
   };
+  const setRefreshToken = (token :string) =>{
+    user.value.refreshToken = token
+  }
   const setUserInfo = (info :aliyunpan.UserInfo) =>{
     user.value.user = info
   }
   return {
     user,
     isLogin,
+    setRefreshToken,
     setUserInfo
   };
 });
