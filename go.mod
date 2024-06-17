@@ -8,11 +8,14 @@ require (
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
 	github.com/tickstep/aliyunpan-api v0.2.1
 	github.com/wailsapp/wails/v2 v2.8.2
+	github.com/zalando/go-keyring v0.2.5
 )
 
 require (
+	github.com/alessio/shellescape v1.4.1 // indirect
 	github.com/bep/debounce v1.2.1 // indirect
 	github.com/btcsuite/btcd v0.22.1 // indirect
+	github.com/danieljoos/wincred v1.2.0 // indirect
 	github.com/go-ole/go-ole v1.3.0 // indirect
 	github.com/godbus/dbus/v5 v5.1.0 // indirect
 	github.com/jchv/go-winloader v0.0.0-20210711035445-715c2860da7e // indirect

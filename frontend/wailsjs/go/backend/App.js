@@ -6,10 +6,18 @@ export function CreatInstance(arg1) {
   return window['go']['backend']['App']['CreatInstance'](arg1);
 }
 
+export function DomReady(arg1) {
+  return window['go']['backend']['App']['DomReady'](arg1);
+}
+
 export function GenerateQrcode() {
   return window['go']['backend']['App']['GenerateQrcode']();
 }
 
 export function QrcodeState(arg1) {
   return window['go']['backend']['App']['QrcodeState'](arg1);
+}
+
+export function Shutdown(arg1) {
+  return window['go']['backend']['App']['Shutdown'](arg1);
 }

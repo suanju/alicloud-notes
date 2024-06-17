@@ -6,21 +6,30 @@ export interface UserInfo {
   user: aliyunpan.UserInfo;
 }
 
-export const useUserStore = defineStore("user", () => {
-  const user = ref(<UserInfo>{});
-  const isLogin = () => {
-    return !!user.value?.refreshToken;
-  };
-  const setRefreshToken = (token :string) =>{
-    user.value.refreshToken = token
+export const useUserStore = defineStore(
+  "user",
+  () => {
+    const user = ref(<UserInfo>{});
+    const isLogin = () => {
+      return !!user.value?.refreshToken;
+    };
+    const setRefreshToken = (token: string) => {
+      user.value.refreshToken = token;
+    };
+    const setUserInfo = (info: aliyunpan.UserInfo) => {
+      user.value.user = info;
+    };
+    return {
+      user,
+      isLogin,
+      setRefreshToken,
+      setUserInfo,
+    };
+  },
+  {
+    persist: {
+      storage: localStorage,
+      paths: ["user"],
+    },
   }
-  const setUserInfo = (info :aliyunpan.UserInfo) =>{
-    user.value.user = info
-  }
-  return {
-    user,
-    isLogin,
-    setRefreshToken,
-    setUserInfo
-  };
-});
+);

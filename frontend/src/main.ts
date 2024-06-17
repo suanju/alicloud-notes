@@ -12,6 +12,7 @@ import "@/style.css";
 import "virtual:uno.css";
 import App from "./App.vue";
 import { createPinia } from "pinia";
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
 const vuetify = createVuetify({
   components,
@@ -25,4 +26,5 @@ const vuetify = createVuetify({
   },
 });
 const pinia = createPinia();
+pinia.use(piniaPluginPersistedstate)
 createApp(App).use(router).use(pinia).use(vuetify).mount("#app");

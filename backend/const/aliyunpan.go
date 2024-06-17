@@ -3,7 +3,6 @@ package _const
 const (
 	AliyunDriveGenerate = "https://passport.aliyundrive.com/newlogin/qrcode/generate.do"
 	AliyunQrcodeQuery   = "https://passport.aliyundrive.com/newlogin/qrcode/query.do"
-	AccountToken        = "https://auth.aliyundrive.com/v2/account/token"
 )
 
 const (

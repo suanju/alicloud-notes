@@ -39,9 +39,9 @@ const router = useRouter()
 const qrcodeResult = ref(<types.GenerateQrcodeResp>{})
 const tips = ref("请用阿里云盘 App 扫码")
 let cl: NodeJS.Timeout
-
 const snackbar = ref(false)
 const snackbarText = ref('')
+
 onMounted(async () => {
     router.push({ name: "Home" })
     qrcodeResult.value = await GenerateQrcode()

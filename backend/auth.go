@@ -12,6 +12,7 @@ import (
 	"github.com/go-resty/resty/v2"
 	"github.com/google/uuid"
 	"github.com/skip2/go-qrcode"
+	"github.com/zalando/go-keyring"
 
 	"github.com/tickstep/aliyunpan-api/aliyunpan_web"
 )
@@ -106,5 +107,8 @@ func (a *App) CreatInstance(req *types.CreatInstanceReq) (resp *types.CreatInsta
 	if apierror != nil {
 		return nil, fmt.Errorf("获取用户信息失败")
 	}
+	//保存到系统密码环
+	keyring.Set(_const.KeyringRefreshTokenKey, _const.KeyringUser, req.RefreshToken)
+	fmt.Println("登录成功")
 	return userInfo, nil
 }
