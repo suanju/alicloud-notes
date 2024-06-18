@@ -10,6 +10,8 @@ export function DomReady(arg1:context.Context):Promise<void>;
 
 export function GenerateQrcode():Promise<types.GenerateQrcodeResp>;
 
+export function Init():Promise<void>;
+
 export function QrcodeState(arg1:types.QrcodeStateReq):Promise<types.QrcodeStateResp>;
 
 export function Shutdown(arg1:context.Context):Promise<void>;

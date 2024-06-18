@@ -14,11 +14,13 @@ import (
 	"github.com/skip2/go-qrcode"
 	"github.com/zalando/go-keyring"
 
+	"github.com/tickstep/aliyunpan-api/aliyunpan"
 	"github.com/tickstep/aliyunpan-api/aliyunpan_web"
 )
 
 //lint:ignore U1000 全局实例
-var panInstance *aliyunpan_web.WebPanClient
+var PanInstance *aliyunpan_web.WebPanClient
+var PanUserInfo *aliyunpan.UserInfo
 
 // GenerateQrcode 阿里云盘获取登录二维码
 func (a *App) GenerateQrcode() (resp *types.GenerateQrcodeResp, err error) {
@@ -94,21 +96,21 @@ func (a *App) CreatInstance(req *types.CreatInstanceReq) (resp *types.CreatInsta
 	appConfig := aliyunpan_web.AppConfig{
 		DeviceId: uuid.New().String(),
 	}
-	panInstance := aliyunpan_web.NewWebPanClient(*webToken, aliyunpan_web.AppLoginToken{}, appConfig, aliyunpan_web.SessionConfig{
+	PanInstance = aliyunpan_web.NewWebPanClient(*webToken, aliyunpan_web.AppLoginToken{}, appConfig, aliyunpan_web.SessionConfig{
 		DeviceName: "云笔记",
 		ModelName:  "云笔记",
 	})
 	// create session
-	panInstance.CreateSession(&aliyunpan_web.CreateSessionParam{
+	PanInstance.CreateSession(&aliyunpan_web.CreateSessionParam{
 		DeviceName: "云笔记",
 		ModelName:  "云笔记",
 	})
-	userInfo, apierror := panInstance.GetUserInfo()
+	PanUserInfo, apierror = PanInstance.GetUserInfo()
 	if apierror != nil {
 		return nil, fmt.Errorf("获取用户信息失败")
 	}
 	//保存到系统密码环
 	keyring.Set(_const.KeyringRefreshTokenKey, _const.KeyringUser, req.RefreshToken)
 	fmt.Println("登录成功")
-	return userInfo, nil
+	return PanUserInfo, nil
 }

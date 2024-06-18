@@ -14,6 +14,10 @@ export function GenerateQrcode() {
   return window['go']['backend']['App']['GenerateQrcode']();
 }
 
+export function Init() {
+  return window['go']['backend']['App']['Init']();
+}
+
 export function QrcodeState(arg1) {
   return window['go']['backend']['App']['QrcodeState'](arg1);
 }
