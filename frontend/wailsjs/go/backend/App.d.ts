@@ -3,12 +3,15 @@
 import {types} from '../models';
 import {aliyunpan} from '../models';
 import {context} from '../models';
+import {directory} from '../models';
 
 export function CreatInstance(arg1:types.CreatInstanceReq):Promise<aliyunpan.UserInfo>;
 
 export function DomReady(arg1:context.Context):Promise<void>;
 
 export function GenerateQrcode():Promise<types.GenerateQrcodeResp>;
+
+export function GetCollectionDirectoryFramework():Promise<directory.DirectoryStructure>;
 
 export function Init():Promise<void>;
 
