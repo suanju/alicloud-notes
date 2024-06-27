@@ -8,7 +8,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": resolve(__dirname, "./src"),
-      "@walis": resolve(__dirname, "./wailsjs")
+      "@wails": resolve(__dirname, "./wailsjs")
     },
   },
   plugins: [vue(),UnoCSS()],

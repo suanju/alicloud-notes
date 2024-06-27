@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import type { aliyunpan } from "@walis/go/models";
+import type { aliyunpan } from "@wails/go/models";
 export interface UserInfo {
   refreshToken: string;
   user: aliyunpan.UserInfo;

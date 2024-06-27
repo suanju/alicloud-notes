@@ -34,8 +34,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { VTreeview } from 'vuetify/labs/VTreeview'
-import { GetCollectionDirectoryFramework } from "@walis/go/backend/App"
-import { directory } from "@walis/go/models"
+import { GetCollectionDirectoryFramework } from "@wails/go/backend/App"
+import { directory } from "@wails/go/models"
 components: {
   VTreeview
 }

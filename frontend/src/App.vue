@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import { Quit, WindowMinimise, WindowMaximise } from '@walis/runtime'
+import { Quit, WindowMinimise, WindowMaximise } from '@wails/runtime'
 
 const cross = () => {
   Quit()

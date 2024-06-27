@@ -27,8 +27,8 @@
 </template>
 
 <script setup lang="ts">
-import { CreatInstance, GenerateQrcode, QrcodeState } from "@walis/go/backend/App"
-import type { types } from "@walis/go/models";
+import { CreatInstance, GenerateQrcode, QrcodeState } from "@wails/go/backend/App"
+import type { types } from "@wails/go/models";
 import { onMounted, ref, watch } from "vue";
 import { useUserStore } from "@/store/user";
 import { useRouter } from "vue-router";

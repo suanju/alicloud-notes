@@ -19,10 +19,11 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-
+    
+    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@walis/*": ["./wailsjs/*"]
+      "@wails/*": ["./wailsjs/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
