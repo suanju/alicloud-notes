@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@iconify-json/system-uicons": "^1.1.12",
+    "@vueup/vue-quill": "^1.2.0",
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^3.2.1",
     "vue": "^3.4.21",
