@@ -59,7 +59,7 @@ func (a *App) QrcodeState(req *types.QrcodeStateReq) (resp *types.QrcodeStateRes
 	params.Set("ck", req.Ck)
 	params.Set("appName", "aliyun_drive")
 	params.Set("appEntrance", "web")
-	body := params.Encode()
+	body := params.Encode()	
 	clientResp, err := resty.New().R().
 		SetHeader(_const.HeaderContentType, _const.FormURLEncodedContentType).
 		SetBody(body).
