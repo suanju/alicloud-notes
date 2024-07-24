@@ -1,64 +1,106 @@
 <template>
-  <v-card class="h-full">
-    <v-layout>
-      <v-navigation-drawer v-model="drawer" :rail="rail" permanent width="240">
-        <v-list-item prepend-avatar="./public/vite.svg" title="Notes" nav>
-        </v-list-item>
-        <v-divider></v-divider>
-        <v-list density="compact" nav>
-          <!-- 文件夹树状结构 -->
-          <v-list-group value="收藏夹">
-            <template v-slot:activator="{ props }">
-              <v-list-item v-bind="props" prepend-icon="mdi-folder" title="收藏夹" :ripple="false"></v-list-item>
+  <div class="h-full"> <a-layout class="layout-demo">
+      <a-layout-sider class="h-full" collapsible breakpoint="xl">
+        <div class="logo" />
+        <a-menu :default-open-keys="['1']" :default-selected-keys="['0_3']" :style="{ width: '100%' }"
+          @menu-item-click="onClickMenuItem">
+          <a-menu-item key="0_2">
+            <IconCalendar></IconCalendar>
+            Menu 2
+          </a-menu-item>
+          <a-menu-item key="0_3">
+            <IconCalendar></IconCalendar>
+            Menu 3
+          </a-menu-item>
+          <a-sub-menu key="0_4" title="我的文件夹">
+            <template #icon>
+              <IconCalendar></IconCalendar>
             </template>
-            <v-treeview :items="collectionDirectoryFramework.children" v-model:selected="treeSelected"
-              @click:select="select" class="custom-treeview">
-              <template #prepend="{ item, isActive }">
-                <v-icon>
-                  {{ item.children ? (isActive ? 'mdi-folder-open' : 'mdi-folder') : 'mdi-file' }}
-                </v-icon>
+            <a-tree class="ml-4" :data="[collectionDirectoryFramework]" :fieldNames="{
+              key: 'value',
+              title: 'name',
+              children: 'children',
+              icon: 'customIcon'
+            }">
+              <template #icon>
+                <IconStar />
               </template>
-              <template #title="{ item }">
-                <span class="custom-treeview-title text-xs">{{ item.name }}</span>
-              </template>
-            </v-treeview>
-          </v-list-group>
-        </v-list>
-      </v-navigation-drawer>
-      <v-main class="h-full">
-        <RouterView />
-      </v-main>
-    </v-layout>
-  </v-card>
-</template>
+            </a-tree>
+          </a-sub-menu>
 
+        </a-menu>
+        <!-- trigger -->
+        <template #trigger="{ collapsed }">
+          <IconCaretRight v-if="collapsed"></IconCaretRight>
+          <IconCaretLeft v-else></IconCaretLeft>
+        </template>
+      </a-layout-sider>
+      <a-layout>
+        <RouterView />
+      </a-layout>
+    </a-layout></div>
+</template>
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue';
-import { VTreeview } from 'vuetify/labs/VTreeview'
+import { Message } from '@arco-design/web-vue';
+import { h, onMounted, ref } from 'vue';
+import {
+  IconCaretRight,
+  IconCaretLeft,
+  IconCalendar,
+  IconStar,
+  IconDriveFile
+} from '@arco-design/web-vue/es/icon';
 import { GetCollectionDirectoryFramework } from "@wails/go/backend/App"
 import type { directory } from "@wails/go/models"
-components: {
-  VTreeview
+
+const onClickMenuItem = (key: String) => {
+  Message.info({ content: `You select ${key}`, showIcon: true });
 }
 
-console.log()
+const treeData = [
+  {
+    title: 'Trunk',
+    key: 'node1',
+    children: [
+      {
+        title: 'Leaf',
+        key: 'node2',
+      },
+    ],
+  },
+  {
+    title: 'Trunk',
+    key: 'node3',
+    children: [
+      {
+        title: 'Leaf',
+        key: 'node4',
+        icon: () => h(IconDriveFile),
+      },
+      {
+        title: 'Leaf',
+        key: 'node5',
+        icon: () => h(IconDriveFile),
+      },
+    ],
+  },
+];
 
-
-const drawer = ref(true)
-const rail = ref(false)
+console.log(treeData)
 // 树状结构数据
 const collectionDirectoryFramework = ref(<directory.DirectoryStructure>{})
-const treeSelected = ref({})
-
-
-const select = (e :any) => {
-  console.log(e)
+const getFileTree = async () => {
+  const GetCollectionDirectoryFrameworkResult = await GetCollectionDirectoryFramework()
+  collectionDirectoryFramework.value = GetCollectionDirectoryFrameworkResult
+  console.log(collectionDirectoryFramework.value)
 }
-watch(() => treeSelected.value, val => {
-  console.log(val)
-})
 
 onMounted(async () => {
-  collectionDirectoryFramework.value = await GetCollectionDirectoryFramework()
+  await getFileTree()
 })
 </script>
+<style scoped>
+::v-deep(.arco-layout) {
+  height: 100%;
+}
+</style>

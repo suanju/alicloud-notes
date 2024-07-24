@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import type { aliyunpan } from "@wails/go/models";
+import { router } from "@/router/router";
 export interface UserInfo {
   refreshToken: string;
   user: aliyunpan.UserInfo;
@@ -19,11 +20,17 @@ export const useUserStore = defineStore(
     const setUserInfo = (info: aliyunpan.UserInfo) => {
       user.value.user = info;
     };
+
+    const logout = () => {
+      user.value = {} as UserInfo
+      router.push({ name: "Login" })
+    }
     return {
       user,
       isLogin,
       setRefreshToken,
       setUserInfo,
+      logout,
     };
   },
   {

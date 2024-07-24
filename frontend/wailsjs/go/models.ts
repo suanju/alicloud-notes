@@ -49,6 +49,7 @@ export namespace directory {
 	    genre: string;
 	    name: string;
 	    size: number;
+	    path?: string;
 	    children?: DirectoryStructure[];
 	
 	    static createFrom(source: any = {}) {
@@ -60,6 +61,7 @@ export namespace directory {
 	        this.genre = source["genre"];
 	        this.name = source["name"];
 	        this.size = source["size"];
+	        this.path = source["path"];
 	        this.children = this.convertValues(source["children"], DirectoryStructure);
 	    }
 	

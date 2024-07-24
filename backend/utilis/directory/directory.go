@@ -11,6 +11,7 @@ type DirectoryStructure struct {
 	Genre    string                `json:"genre"`
 	Name     string                `json:"name"`
 	Size     int64                 `json:"size"`
+	Path     string                `json:"path,omitempty"`
 	Children []*DirectoryStructure `json:"children,omitempty"`
 }
 
@@ -28,6 +29,7 @@ func BuildDirectoryStructure(dirPath string) (*DirectoryStructure, error) {
 	dir := &DirectoryStructure{
 		Name:  dirInfo.Name(),
 		Genre: Directory,
+		Path:  dirPath + dirInfo.Name(),
 		Size:  dirInfo.Size(),
 	}
 	// 读取目录内容
@@ -47,6 +49,7 @@ func BuildDirectoryStructure(dirPath string) (*DirectoryStructure, error) {
 			subFiles = append(subFiles, &DirectoryStructure{
 				Name:  entry.Name(),
 				Genre: File,
+				Path:  dirPath + entry.Name(),
 				Size:  info.Size(),
 			})
 		}
