@@ -14,6 +14,10 @@ export function GenerateQrcode() {
   return window['go']['backend']['App']['GenerateQrcode']();
 }
 
+export function GetCollectionDirectoryFolders() {
+  return window['go']['backend']['App']['GetCollectionDirectoryFolders']();
+}
+
 export function GetCollectionDirectoryFramework() {
   return window['go']['backend']['App']['GetCollectionDirectoryFramework']();
 }

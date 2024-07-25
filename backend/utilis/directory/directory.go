@@ -21,7 +21,7 @@ const (
 )
 
 // buildDirectoryStructure 递归构建目录结构
-func BuildDirectoryStructure(dirPath string) (*DirectoryStructure, error) {
+func BuildDirectoryStructure(dirPath string, includeFiles bool) (*DirectoryStructure, error) {
 	dirInfo, err := os.Stat(dirPath)
 	if err != nil {
 		return nil, fmt.Errorf("目录不存在 %s: %v", dirPath, err)
@@ -29,7 +29,7 @@ func BuildDirectoryStructure(dirPath string) (*DirectoryStructure, error) {
 	dir := &DirectoryStructure{
 		Name:  dirInfo.Name(),
 		Genre: Directory,
-		Path:  dirPath + dirInfo.Name(),
+		Path:  filepath.Join(dirPath, dirInfo.Name()),
 		Size:  dirInfo.Size(),
 	}
 	// 读取目录内容
@@ -42,14 +42,14 @@ func BuildDirectoryStructure(dirPath string) (*DirectoryStructure, error) {
 	for _, entry := range entries {
 		if entry.IsDir() {
 			subDirPath := filepath.Join(dirPath, entry.Name())
-			subDir, _ := BuildDirectoryStructure(subDirPath)
+			subDir, _ := BuildDirectoryStructure(subDirPath, includeFiles)
 			subFiles = append(subFiles, subDir)
-		} else {
+		} else if includeFiles {
 			info, _ := entry.Info()
 			subFiles = append(subFiles, &DirectoryStructure{
 				Name:  entry.Name(),
 				Genre: File,
-				Path:  dirPath + entry.Name(),
+				Path:  filepath.Join(dirPath, entry.Name()),
 				Size:  info.Size(),
 			})
 		}

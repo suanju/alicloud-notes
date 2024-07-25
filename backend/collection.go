@@ -14,11 +14,22 @@ type File struct {
 	Children []*File `json:"children,omitempty"`
 }
 
+// GetCollectionDirectoryFramework 获取目录框架 所有文件
 func (a *App) GetCollectionDirectoryFramework() (*directory.DirectoryStructure, error) {
 	wd, _ := os.Getwd()
 	ph := path.Join(wd, _const.WorkPathByLocal)
 	if _, err := os.Stat(ph); err != nil {
 		return nil, fmt.Errorf("工作目录不存在 %s err : %s", ph, err)
 	}
-	return directory.BuildDirectoryStructure(ph)
+	return directory.BuildDirectoryStructure(ph, true)
+}
+
+// GetCollectionDirectoryFolders 获取目录框架 所有文件夹
+func (a *App) GetCollectionDirectoryFolders() (*directory.DirectoryStructure, error) {
+	wd, _ := os.Getwd()
+	ph := path.Join(wd, _const.WorkPathByLocal)
+	if _, err := os.Stat(ph); err != nil {
+		return nil, fmt.Errorf("工作目录不存在 %s err : %s", ph, err)
+	}
+	return directory.BuildDirectoryStructure(ph, false)
 }

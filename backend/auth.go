@@ -59,7 +59,7 @@ func (a *App) QrcodeState(req *types.QrcodeStateReq) (resp *types.QrcodeStateRes
 	params.Set("ck", req.Ck)
 	params.Set("appName", "aliyun_drive")
 	params.Set("appEntrance", "web")
-	body := params.Encode()	
+	body := params.Encode()
 	clientResp, err := resty.New().R().
 		SetHeader(_const.HeaderContentType, _const.FormURLEncodedContentType).
 		SetBody(body).
@@ -114,3 +114,8 @@ func (a *App) CreatInstance(req *types.CreatInstanceReq) (resp *types.CreatInsta
 	fmt.Println("登录成功")
 	return PanUserInfo, nil
 }
+
+// // UserGetDriveInfo 获取用户drive信息
+// func (a *App) getUserDriveInfo() (*aliyunpan.UserInfo, *apierror.ApiError) {
+// 	PanInstance.getUserInfoReq()
+// }

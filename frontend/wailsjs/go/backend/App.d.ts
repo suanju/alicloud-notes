@@ -11,6 +11,8 @@ export function DomReady(arg1:context.Context):Promise<void>;
 
 export function GenerateQrcode():Promise<types.GenerateQrcodeResp>;
 
+export function GetCollectionDirectoryFolders():Promise<directory.DirectoryStructure>;
+
 export function GetCollectionDirectoryFramework():Promise<directory.DirectoryStructure>;
 
 export function Init():Promise<void>;
