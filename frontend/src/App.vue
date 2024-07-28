@@ -7,10 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-  EventsOn,
-  EventsEmit,
-} from "@wails/runtime";
+import { EventsOn, EventsEmit } from "@wails/runtime";
 import { useUserStore } from "@/store/user";
 
 const userStore = useUserStore();

@@ -17,8 +17,8 @@
                 key: 'value',
                 title: 'name',
                 children: 'children',
-                icon: 'customIcon',
               }"
+              @select="treeSelect"
             >
               <template #icon>
                 <IconFolder />
@@ -65,6 +65,10 @@ const getFileTree = async () => {
 onMounted(async () => {
   await getFileTree();
 });
+
+const treeSelect = (_: any, data: any) => {
+  console.log(data.node.path);
+};
 </script>
 <style scoped>
 ::v-deep(.arco-layout) {
