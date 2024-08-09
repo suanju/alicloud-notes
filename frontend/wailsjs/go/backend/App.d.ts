@@ -15,6 +15,8 @@ export function GetCollectionDirectoryFolders():Promise<directory.DirectoryStruc
 
 export function GetCollectionDirectoryFramework():Promise<directory.DirectoryStructure>;
 
+export function GetDirectoryFrameworkByPath(arg1:string):Promise<directory.DirectoryStructure>;
+
 export function Init():Promise<void>;
 
 export function QrcodeState(arg1:types.QrcodeStateReq):Promise<types.QrcodeStateResp>;

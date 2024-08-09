@@ -22,6 +22,10 @@ export function GetCollectionDirectoryFramework() {
   return window['go']['backend']['App']['GetCollectionDirectoryFramework']();
 }
 
+export function GetDirectoryFrameworkByPath(arg1) {
+  return window['go']['backend']['App']['GetDirectoryFrameworkByPath'](arg1);
+}
+
 export function Init() {
   return window['go']['backend']['App']['Init']();
 }

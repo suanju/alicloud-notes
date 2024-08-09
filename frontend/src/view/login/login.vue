@@ -1,12 +1,7 @@
 <template>
   <div class="flex flex-col">
     <div class="h-8 w-full flex flex-row-reverse z-36" style="-webkit-app-region: drag">
-      <div class="i-system-uicons-cross h-6 w-6 bg-gray-500 m-2" @click="cross"></div>
-      <div
-        class="i-system-uicons-scale-extend h-6 w-6 bg-gray-500 m-2"
-        @click="maxus"
-      ></div>
-      <div class="i-system-uicons-minus h-6 w-6 bg-gray-500 m-2" @click="minus"></div>
+      <WindowControlBar></WindowControlBar>
     </div>
 
     <div class="font-sans">
@@ -38,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import { Quit, WindowMinimise, WindowMaximise } from "@wails/runtime";
+import WindowControlBar from "@/components/window_control_bar/window_control_bar.vue";
 import { CreatInstance, GenerateQrcode, QrcodeState } from "@wails/go/backend/App";
 import type { types } from "@wails/go/models";
 import { onMounted, ref } from "vue";
@@ -53,30 +48,20 @@ const qrcodeResult = ref(<types.GenerateQrcodeResp>{});
 const tips = ref("请用阿里云盘 App 扫码");
 let cl: NodeJS.Timeout;
 
-const cross = () => {
-  Quit();
-};
-const minus = () => {
-  WindowMinimise();
-};
-const maxus = () => {
-  WindowMaximise();
-};
-
 onMounted(async () => {
   qrcodeResult.value = await GenerateQrcode();
   cl = setInterval(async () => {
     try {
       //获取验证码状态
-      const qrcodeStateResult = await QrcodeState(<types.QrcodeStateReq>{
+      const result = await QrcodeState(<types.QrcodeStateReq>{
         t: qrcodeResult.value.t,
         ck: qrcodeResult.value.ck,
       });
-      userStore.setRefreshToken(qrcodeStateResult.refreshToken);
+      userStore.setRefreshToken(result.refreshToken);
       clearInterval(cl);
       //根据refreshToken获取accessToken并且得到实例
       const creatInstanceResult = await CreatInstance({
-        refreshToken: qrcodeStateResult.refreshToken,
+        refreshToken: result.refreshToken,
       });
       userStore.setUserInfo(creatInstanceResult);
       Message.success("登录成功");

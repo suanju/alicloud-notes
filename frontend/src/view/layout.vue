@@ -49,6 +49,9 @@ import {
 } from "@arco-design/web-vue/es/icon";
 import { GetCollectionDirectoryFolders } from "@wails/go/backend/App";
 import type { directory } from "@wails/go/models";
+import { useglobalStore } from "@/store/global";
+
+const globalStore = useglobalStore();
 
 const onClickMenuItem = (key: String) => {
   Message.info({ content: `You select ${key}`, showIcon: true });
@@ -57,8 +60,8 @@ const onClickMenuItem = (key: String) => {
 // 树状结构数据
 const collectionDirectoryFolders = ref(<directory.DirectoryStructure>{});
 const getFileTree = async () => {
-  const GetCollectionDirectoryFoldersResult = await GetCollectionDirectoryFolders();
-  collectionDirectoryFolders.value = GetCollectionDirectoryFoldersResult;
+  const result = await GetCollectionDirectoryFolders();
+  collectionDirectoryFolders.value = result;
   console.log(collectionDirectoryFolders.value);
 };
 
@@ -67,7 +70,7 @@ onMounted(async () => {
 });
 
 const treeSelect = (_: any, data: any) => {
-  console.log(data.node.path);
+  globalStore.selectedCatalog = data.node.dir_path;
 };
 </script>
 <style scoped>

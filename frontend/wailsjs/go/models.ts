@@ -49,6 +49,7 @@ export namespace directory {
 	    genre: string;
 	    name: string;
 	    size: number;
+	    dir_path: string;
 	    path?: string;
 	    children?: DirectoryStructure[];
 	
@@ -61,6 +62,7 @@ export namespace directory {
 	        this.genre = source["genre"];
 	        this.name = source["name"];
 	        this.size = source["size"];
+	        this.dir_path = source["dir_path"];
 	        this.path = source["path"];
 	        this.children = this.convertValues(source["children"], DirectoryStructure);
 	    }

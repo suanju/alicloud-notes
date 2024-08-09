@@ -33,3 +33,11 @@ func (a *App) GetCollectionDirectoryFolders() (*directory.DirectoryStructure, er
 	}
 	return directory.BuildDirectoryStructure(ph, false)
 }
+
+// GetDirectoryFrameworkByPath 获取指定目录所有文件
+func (a *App) GetDirectoryFrameworkByPath(ph string) (*directory.DirectoryStructure, error) {
+	if _, err := os.Stat(ph); err != nil {
+		return nil, fmt.Errorf("工作目录不存在 %s err : %s", ph, err)
+	}
+	return directory.BuildDirectoryStructure(ph, true)
+}
