@@ -5,7 +5,7 @@
         <div />
         <!-- 头部部分 -->
         <div class="w-full flex items-center"></div>
-        <a-menu :style="{ width: '100%' }" @menu-item-click="onClickMenuItem">
+        <a-menu :style="{ width: '100%' }" @menu-item-click="onClickMenuItem" v-directive:contextmenu>
           <a-sub-menu class="mt-2" key="0_1" title="我的文件夹">
             <template #icon>
               <IconCalendar></IconCalendar>
@@ -25,6 +25,12 @@
               </template>
             </a-tree>
           </a-sub-menu>
+
+          <Contextmenu ref="contextmenu">
+            <ContextmenuItem>菜单1</ContextmenuItem>
+            <ContextmenuItem>菜单2</ContextmenuItem>
+            <ContextmenuItem>菜单3</ContextmenuItem>
+          </Contextmenu>
         </a-menu>
         <!-- trigger -->
         <template #trigger="{ collapsed }">
@@ -50,6 +56,9 @@ import {
 import { GetCollectionDirectoryFolders } from "@wails/go/backend/App";
 import type { directory } from "@wails/go/models";
 import { useglobalStore } from "@/store/global";
+import { directive, Contextmenu, ContextmenuItem } from "v-contextmenu";
+import "v-contextmenu/dist/themes/default.css";
+
 
 const globalStore = useglobalStore();
 

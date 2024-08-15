@@ -4,7 +4,7 @@
       <SideBar></SideBar>
     </a-layout-sider>
     <a-layout-content>
-      <div class="flex flex-col">
+      <div class="flex flex-col h-full overflow-hidden">  
         <WindowControlBar></WindowControlBar>
         <Editer></Editer>
       </div>

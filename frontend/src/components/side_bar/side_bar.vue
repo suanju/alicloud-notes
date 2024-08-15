@@ -3,8 +3,6 @@
     <div class="w-4.4/5"><a-input-search class=" " placeholder="" /></div>
     <div>
       <div class="flex w-full">
-        <IconLeft />
-        <div></div>
       </div>
     </div>
   </div>
@@ -15,7 +13,6 @@ import { useglobalStore } from "@/store/global";
 import { GetDirectoryFrameworkByPath } from "@wails/go/backend/App";
 import { directory } from "@wails/go/models";
 import { onMounted, ref, watch } from "vue";
-import { IconLeft } from "@arco-design/web-vue/es/icon";
 
 const globalStore = useglobalStore();
 const filesList = ref(<directory.DirectoryStructure[]>[]);
