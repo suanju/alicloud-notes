@@ -16,14 +16,17 @@
           <div class="relative w-full rounded-3xl px-6 py-4 bg-gray-100 shadow-md">
             <div class="bg-white p-8 rounded-lg shadow-lg max-w-sm w-full text-center">
               <h1 class="text-2xl font-semibold mb-4">Alicloud-Notes Login</h1>
-              <div class="mb-4">
+              <div class="mb-4 flex">
                 <img
                   :src="qrcodeResult.qrCode ? qrcodeResult.qrCode : Lodaing"
                   alt="阿里云盘二维码"
                   class="mx-auto h-48 w-48"
                 />
               </div>
-              <p class="mb-4">{{ tips }}</p>
+              <div class="flex flex-col items-center">
+                <p class="mb-4">{{ tips }}</p>
+                <div v-show="isExpire" @click="reload" class="i-system-uicons-reset-alt size-4 bg-blue-400"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -46,9 +49,15 @@ const userStore = useUserStore();
 const router = useRouter();
 const qrcodeResult = ref(<types.GenerateQrcodeResp>{});
 const tips = ref("请用阿里云盘 App 扫码");
+const isExpire = ref(false)
 let cl: NodeJS.Timeout;
 
-onMounted(async () => {
+onMounted(() =>{
+  getQrcode()  
+});
+
+
+const getQrcode = async () => {
   qrcodeResult.value = await GenerateQrcode();
   cl = setInterval(async () => {
     try {
@@ -69,10 +78,19 @@ onMounted(async () => {
       console.log("CreatInstance Response", creatInstanceResult);
     } catch (err: any) {
       console.log("tips", err);
+      if(err === "二维码已过期"){
+        isExpire.value = true
+        clearInterval(cl);
+      }
       tips.value = err;
     }
   }, 1000);
-});
+}
+const reload = () => {
+  isExpire.value = false
+  tips.value = "请用阿里云盘 App 扫码"
+  getQrcode()
+}
 </script>
 
 <style scoped></style>
