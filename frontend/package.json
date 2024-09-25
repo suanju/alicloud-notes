@@ -10,10 +10,10 @@
   },
   "dependencies": {
     "@iconify-json/system-uicons": "^1.1.12",
+    "@imengyu/vue3-context-menu": "^1.4.2",
     "@vueup/vue-quill": "^1.2.0",
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^3.2.1",
-    "v-contextmenu": "^2.9.2",
     "vue": "^3.4.21",
     "vue-router": "4"
   },

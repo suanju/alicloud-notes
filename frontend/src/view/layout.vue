@@ -5,8 +5,8 @@
         <div />
         <!-- 头部部分 -->
         <div class="w-full flex items-center"></div>
-        <a-menu :style="{ width: '100%' }" @menu-item-click="onClickMenuItem" v-directive:contextmenu>
-          <a-sub-menu class="mt-2" key="0_1" title="我的文件夹">
+        <a-menu :style="{ width: '100%' }" @menu-item-click="onClickMenuItem" @contextmenu="onContextMenu($event)" >
+          <a-sub-menu class="mt-2" key="0_1" title="我的文件夹" >
             <template #icon>
               <IconCalendar></IconCalendar>
             </template>
@@ -26,11 +26,6 @@
             </a-tree>
           </a-sub-menu>
 
-          <Contextmenu ref="contextmenu">
-            <ContextmenuItem>菜单1</ContextmenuItem>
-            <ContextmenuItem>菜单2</ContextmenuItem>
-            <ContextmenuItem>菜单3</ContextmenuItem>
-          </Contextmenu>
         </a-menu>
         <!-- trigger -->
         <template #trigger="{ collapsed }">
@@ -56,8 +51,7 @@ import {
 import { GetCollectionDirectoryFolders } from "@wails/go/backend/App";
 import type { directory } from "@wails/go/models";
 import { useglobalStore } from "@/store/global";
-import { directive, Contextmenu, ContextmenuItem } from "v-contextmenu";
-import "v-contextmenu/dist/themes/default.css";
+import ContextMenu from '@imengyu/vue3-context-menu'
 
 
 const globalStore = useglobalStore();
@@ -77,6 +71,25 @@ const getFileTree = async () => {
 onMounted(async () => {
   await getFileTree();
 });
+
+
+const onContextMenu = (e : MouseEvent) => {
+  //prevent the browser's default menu
+  e.preventDefault();
+  //show your menu
+  ContextMenu.showContextMenu({
+    x: e.x,
+    y: e.y,
+    items: [
+      { 
+        label: "新建文件夹", 
+        onClick: () => {
+          alert("You click a menu item");
+        }
+      },
+    ]
+  });
+}
 
 const treeSelect = (_: any, data: any) => {
   globalStore.selectedCatalog = data.node.dir_path;
