@@ -41,3 +41,10 @@ func (a *App) GetDirectoryFrameworkByPath(ph string) (*directory.DirectoryStruct
 	}
 	return directory.BuildDirectoryStructure(ph, true)
 }
+
+// CreateFolderByFramework 创建文件夹
+func (a *App) CreateFolderByFramework(name string) bool {
+	err := os.MkdirAll(path.Join(_const.WorkPathByLocal, name), os.ModePerm)
+	fmt.Println("创建文件夹", name, err)
+	return err == nil
+}

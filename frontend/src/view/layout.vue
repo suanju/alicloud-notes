@@ -37,6 +37,13 @@
         <RouterView />
       </a-layout>
     </a-layout>
+
+    <!-- 模态框 -->
+    <a-modal v-model:visible="createFolderShow" title="创建新的文件夹" @cancel="createFolderShow = false" @before-ok="createFolder">
+      <a-form-item  label="文件夹名称">
+        <a-input v-model="creationForName" />
+      </a-form-item>
+  </a-modal>
   </div>
 </template>
 <script setup lang="ts">
@@ -48,7 +55,7 @@ import {
   IconCalendar,
   IconFolder,
 } from "@arco-design/web-vue/es/icon";
-import { GetCollectionDirectoryFolders } from "@wails/go/backend/App";
+import { GetCollectionDirectoryFolders,CreateFolderByFramework } from "@wails/go/backend/App";
 import type { directory } from "@wails/go/models";
 import { useglobalStore } from "@/store/global";
 import ContextMenu from '@imengyu/vue3-context-menu'
@@ -83,8 +90,9 @@ const onContextMenu = (e : MouseEvent) => {
     items: [
       { 
         label: "新建文件夹", 
-        onClick: () => {
-          alert("You click a menu item");
+        onClick: (e) => {
+          console.log(e)
+          createFolderShow.value = true
         }
       },
     ]
@@ -94,6 +102,22 @@ const onContextMenu = (e : MouseEvent) => {
 const treeSelect = (_: any, data: any) => {
   globalStore.selectedCatalog = data.node.dir_path;
 };
+
+
+
+const createFolderShow = ref(false)
+const creationForName = ref("")
+const createFolder = async () => {
+  const result = await CreateFolderByFramework(creationForName.value)
+  if(result){
+    Message.success({ content: "创建成功", showIcon: true });
+    getFileTree()
+    createFolderShow.value = false
+  }else{
+    Message.error({ content: "创建失败", showIcon: true });
+  }
+  creationForName.value = ""
+}
 </script>
 <style scoped>
 ::v-deep(.arco-layout) {

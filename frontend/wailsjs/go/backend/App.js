@@ -6,6 +6,10 @@ export function CreatInstance(arg1) {
   return window['go']['backend']['App']['CreatInstance'](arg1);
 }
 
+export function CreateFolderByFramework(arg1) {
+  return window['go']['backend']['App']['CreateFolderByFramework'](arg1);
+}
+
 export function DomReady(arg1) {
   return window['go']['backend']['App']['DomReady'](arg1);
 }

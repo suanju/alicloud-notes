@@ -7,6 +7,8 @@ import {directory} from '../models';
 
 export function CreatInstance(arg1:types.CreatInstanceReq):Promise<aliyunpan.UserInfo>;
 
+export function CreateFolderByFramework(arg1:string):Promise<boolean>;
+
 export function DomReady(arg1:context.Context):Promise<void>;
 
 export function GenerateQrcode():Promise<types.GenerateQrcodeResp>;
